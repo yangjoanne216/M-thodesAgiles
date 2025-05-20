@@ -6,18 +6,18 @@ Feature: Sauver Princess
   Afin de vivre heureux ensemble pour toujours
 
   Scenario Outline : Sauver la princesse qui n'est pas encore sauvée
-    Given une princesse
-    And je connais son <name>
-    And je sais si cette princesse n'est pas <alreadySaved>
-    And je n'ai pas déjà de princesse
+    Given une princesse <princesse>
+    And qui n'est pas <alreadySaved>
+    And un <prince>
+    And qui n'a pas déjà de princesse
     When je la sauve
-    Then je devrais être le prince de la princesse
-    Then la princesse devrait être sauvée
+    Then <prince> et <princesse> devraient être ensemble
+    Then la <princesse> devrait être <sauvee>
 
     Examples:
-      | name       | alreadySaved | 
-      | "Rapunzel" | false        |
-      | "Flynn"    | false        |
+      | princesse  | alreadySaved | prince   | sauvee | 
+      | "Rapunzel" | false        | "Flynn"  | true   |
+      | "Olive"    | true         | "Brutus" | false |
     
   Scenario Outline : Sauver la princesse était déjà sauvée
     Given une princesse
