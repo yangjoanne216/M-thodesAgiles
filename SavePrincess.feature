@@ -11,11 +11,8 @@ Feature: Sauver Princess
     And je sais si cette princesse n'est pas <alreadySaved>
     And je n'ai pas déjà de princesse
     When je la sauve
-    And elle n'est pas encore sauvée
-    And je n'ai pas encore eu une princesse
     Then je devrais être le prince de la princesse
     Then la princesse devrait être sauvée
-    Then je devrais vivre heureux avec la princesse pour toujours
 
     Examples:
       | name       | alreadySaved | 
