@@ -10,7 +10,7 @@ Feature: Sauver Princess
     And qui n'est pas <alreadySaved>
     And un <prince>
     And qui n'a pas déjà de princesse
-    When la prince la sauve
+    When le prince la sauve
     Then <prince> et <princesse> devraient être ensemble
     Then la <princesse> devrait être <saved>
 
