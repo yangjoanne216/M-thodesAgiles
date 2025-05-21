@@ -39,10 +39,8 @@ Scenario: Nick sauve Annie — échec
       | princesse  | alreadySaved |  prince |alreadyHadPrincess | saved  | 
       | "Rapunzel" | false        |"Flynn"  | false             |true    |
       
-      
 
-
-    Scenario Outline : Sauver la princesse était déjà sauvée
+  Scenario Outline : Sauver la princesse était déjà sauvée
     Given une <princesse>
     And qui est <alreadySaved>
     When la prince la sauve
