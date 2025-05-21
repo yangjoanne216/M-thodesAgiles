@@ -1,5 +1,7 @@
 # [Agilite]-TPJU-<Princesse>-<NGUYEN_YANG>
 
+## Concepts de POO
+
 Aujourd'hui, nous allons apprendre les concepts de la programmation orientée objet (POO), grâce à l'aide de l'outil BlueJ.
 
 _Tout d'abord, nous allons vous raconter une histoire_
@@ -135,3 +137,11 @@ On voit bien que la nouvelle méthode de test utilise les deux instances déjà 
 
 ![image](https://github.com/user-attachments/assets/9c67fd86-d2f0-4d41-b3f2-3fbf63723ca5)
 <img width="544" alt="Screenshot 2025-05-20 at 11 57 19" src="https://github.com/user-attachments/assets/e62eb5b6-3a6a-4fd4-8f16-556ae6b020f4" />
+
+
+## Test
+On utilise la librairie "behave" pour tester la fonctionnalité des codes. Détails des codes de test se trouvent dans le dossier "features" et détails des codes d'implémentation des 2 classes se trouvent dans le fichier "kingdom.py".
+
+Voici les résultats de test:
+
+![image](https://github.com/user-attachments/assets/3eb28be6-435c-4c35-af18-0990db803456)
