@@ -12,7 +12,7 @@ Feature: Sauver Princess
     And qui n'a pas déjà de princesse
     When le prince la sauve
     Then <prince> et <princesse> devraient être ensemble
-    Then la <princesse> devrait être <saved>
+    And la <princesse> devrait être <saved>
 
     Examples:
       | princesse  | alreadySaved | prince   | saved  | 
