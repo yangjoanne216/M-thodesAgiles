@@ -4,81 +4,53 @@ Steps pour : Feature « Sauver Princess »
 
 from dataclasses import dataclass
 from behave import given, when, then
-from kingdom import Prince, Princess
+from kingdom import Princess, Prince
 
 
 @dataclass
-class SavePrincessSteps:
-    princess: Princess | None = None
-    prince: Prince | None = None
-    saved: bool | None = None
+class PrincessStep:
+    princess: Princess
+    prince: Prince
 
-    # Scenario
-    @given("une princesse")
+    # Scenario: Flynn sauve Rapunzel avec succès
+    # @given('une princesse nommée Rapunzel qui n''a pas encore été sauvée')
+    @given("une princesse nommée Rapunzel qui n'a pas encore été sauvée")
+    def given_princess_not_saved(self):
+        self.princess = Princess("Rapunzel", False)
 
-    # Scenario Outline
+    @given("un prince nommé Flynn qui n'a pas de princesse")
+    def given_prince_no_princess(self):
+        self.prince = Prince("Flynn", None)
+
+    @when("Flynn sauve Rapunzel")
+    def when_flynn_saves_rapunzel(self):
+        self.saved = self.prince.savePrincess(self.princess)
+
+    @then("Flynn et Rapunzel sont ensemble et Rapunzel est sauvée")
+    def then_flynn_and_rapunzel_together(self):
+        assert self.prince.princess == self.princess
+        assert self.princess.isSaved() == True
+
+    # Scenario Outline: Un prince sans princesse sauve une princesse qui n’a pas encore été sauvée
     @given(
-        "une {princesse} qui n'est pas {alreadySaved}"
-        "et un {prince} et {princessDuPrince} n'est personne"
+        "une princesse nommée {princesse} qui n'a pas encore été sauvée: {alreadySaved}"
     )
-    def given_a_princess(
-        self,
-        princess,
-        prince,
-        alreadySaved: bool = False,
-        princessDuPrince: Princess = None,
-    ):
-        self.princess = Princess(princess, alreadySaved)
-        self.prince = Prince(prince, princessDuPrince)
+    def step_given_princess_with_status(self, princesse, alreadySaved):
+        self.princess = Princess(princesse, False if alreadySaved == "False" else True)
 
-    @when("le prince la sauve")
-    def when_the_prince_rescues_the_princess(self):
+    @given("un prince nommé {prince} et sa princesse est: {princessDuPrince}")
+    def step_given_prince_with_princess(self, prince, princessDuPrince):
+        self.prince = Prince(
+            prince, None if princessDuPrince == "None" else Princess(princessDuPrince)
+        )
+
+    @when("le prince sauve {princesse}")
+    def step_when_prince_saves_named_princess(self, princesse):
         self.prince.savePrincess(self.princess)
 
     @then(
-        "{prince} et {princesse} devraient être ensemble"
-        "et la {princesse} devrait être {saved}"
+        "prince et princesse devraient être ensemble et la {princesse} devrait être {saved}"
     )
-    def then_the_princess_is_rescued(self):
-        self.saved = self.princess.isSaved() & self.prince.isAlreadyHadPrincess()
-        assert self.saved, True
-
-    # Scenario Outline
-    @given("une {princesse} qui est {alreadySaved}")
-    def given_a_princess_with_rescue_status(self, princess, alreadySaved: bool = True):
-        self.princess = Princess(princess, alreadySaved)
-        self.prince = Prince()
-
-    @when("la prince la sauve")
-    def when_the_prince_tries_to_rescue_the_princess(self):
-        self.prince.savePrincess(self.princess)
-
-    @then(
-        "{prince} et {princesse} ne pourraient pas être ensemble"
-        "et la {princesse} ne pourraient pas être être {saved}"
-    )
-    def then_the_princess_is_not_rescued(self):
-        self.saved = self.princess.isSaved() & self.prince.isAlreadyHadPrincess()
-        assert self.saved, False
-
-    # Scenario Outline
-    @given("une princesse et un {prince} et {princessDuPrince} est déjà quelqu'un")
-    def given_a_prince_with_a_princess(
-        self,
-        prince,
-        princessDuPrince: Princess = Princess(),
-    ):
-        self.princess = Princess()
-        self.prince = Prince(prince, princessDuPrince)
-
-    @when("le {prince} la sauve")
-    def when_the_prince_tries_to_rescue_another_princess(self):
-        self.prince.savePrincess(self.princess)
-
-    @then(
-        "{prince} et {princesse} ne pourraient pas être ensemble"
-        "et la {princesse} ne pourraient pas être être {saved}"
-    )
-    def then_the_prince_cannot_rescue_the_princess(self):
-        self.saved = self.princess.isSaved() & self.prince.isAlreadyHadPrincess()
-        assert self.saved, False
+    def step_then_saved_status(self, princesse, saved):
+        expected = False if saved == "False" else True
+        assert self.princess.isSaved() & (self.prince.princess != None) == expected

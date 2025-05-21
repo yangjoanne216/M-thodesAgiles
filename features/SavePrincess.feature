@@ -9,56 +9,16 @@ Feature: Sauver Princess
     Given une princesse nommée Rapunzel qui n'a pas encore été sauvée
     And un prince nommé Flynn qui n'a pas de princesse
     When Flynn sauve Rapunzel
-    Then Flynn et Rapunzel sont ensemble
-    And Rapunzel est sauvée
+    Then Flynn et Rapunzel sont ensemble et Rapunzel est sauvée
 
- Scenario: Brutus sauve Olive — échec
-    Given une princesse nommée Olive qui a déjà été sauvée
-    And un prince nommé Brutus qui n'a pas de princesse
-    When Brutus tente de sauver Olive
-    Then Olive refuse d’être avec Brutus
-    And Olive dit : "Je suis désolée, mais j’ai déjà un prince."
+  Scenario Outline: Un prince sans princesse sauve une princesse qui n’a pas encore été sauvée
+    Given une princesse nommée <princesse> qui n'a pas encore été sauvée: <alreadySaved>
+    And un prince nommé <prince> et sa princesse est: <princessDuPrince>
+    When le prince sauve <princesse>
+    Then prince et princesse devraient être ensemble et la <princesse> devrait être <saved>
 
-Scenario: Nick sauve Annie — échec
-    Given une princesse nommée Annie qui n'a pas encore été sauvée
-    And un prince nommé Nick qui a déjà une princesse
-    When Nick tente de sauver Annie
-    Then Annie refuse d’être avec Nick
-    And Annie dit : "Je suis désolée, mais je ne peux pas être avec un prince infidèle."
-
-  Scenario Outline : Un prince sans princesse sauve une princesse qui n’a pas encore été sauvée
-    Given une <princesse>
-    And qui n'est pas <alreadySaved>
-    And un <prince>
-    And <princessDuPrince> n'est personne
-    When le prince la sauve
-    Then <prince> et <princesse> devraient être ensemble
-    And la <princesse> devrait être <saved>
-
-    Examples:
-      | princesse  | alreadySaved |  prince | princessDuPrince | saved  | 
-      | "Rapunzel" | false        |"Flynn"  | null             | true   |
-      
-
-  Scenario Outline : Sauver la princesse était déjà sauvée
-    Given une <princesse>
-    And qui est <alreadySaved>
-    When la prince la sauve
-    Then <prince> et <princesse> ne pourraient pas être ensemble
-    And la <princesse> ne pourraient pas être <saved>
-
-    Examples:
-      | princesse  | alreadySaved | saved |
-      | "Olive"    | true         | false |
-
-  Scenario Outline : Sauver la princesse quand le prince a déjà une princesse
-    Given une princesse
-    And un <prince> et <princessDuPrince> est déjà quelqu'un
-    When le <prince> la sauve
-    Then <prince> et <princesse> ne pourraient pas être ensemble
-    And la <princesse> ne pourraient pas être <saved>
-
-    Examples:
-      | prince  | princessDuPrince    | saved |
-      | "Nick"  | Rapunzel            | false |
-    
+  Examples:
+    | princesse  | alreadySaved | prince |princessDuPrince | saved  |
+    | Rapunzel   | False        | Flynn  |None             | True   |
+    | Rapunzel   | True         | Flynn  |None             | False  |
+    | Rapunzel   | False        | Flynn  |Rapunzel         | False  |
