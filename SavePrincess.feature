@@ -30,33 +30,35 @@ Scenario: Nick sauve Annie — échec
     Given une <princesse>
     And qui n'est pas <alreadySaved>
     And un <prince>
-    And qui n'est pas <alreadyHadPrincess>
+    And <princessDuPrince> n'est personne
     When le prince la sauve
     Then <prince> et <princesse> devraient être ensemble
     And la <princesse> devrait être <saved>
 
     Examples:
-      | princesse  | alreadySaved |  prince |alreadyHadPrincess | saved  | 
-      | "Rapunzel" | false        |"Flynn"  | false             |true    |
+      | princesse  | alreadySaved |  prince | princessDuPrince | saved  | 
+      | "Rapunzel" | false        |"Flynn"  | null             | true   |
       
 
   Scenario Outline : Sauver la princesse était déjà sauvée
     Given une <princesse>
     And qui est <alreadySaved>
     When la prince la sauve
-    Then elle va lui refuser et dire qu'elle a eu déjà un prince (<messageErreur>)
+    Then <prince> et <princesse> ne pourraient pas être ensemble
+    And la <princesse> ne pourraient pas être <saved>
 
     Examples:
-      | princesse  | alreadySaved | messageErreur                               |
-      | "Olive"    | true         | "Je suis désolé, mais j'ai déjà un prince." |
+      | princesse  | alreadySaved | saved |
+      | "Olive"    | true         | false |
 
-  Scenario Outline : Sauver la princesse quand la prince a déjà une princesse
+  Scenario Outline : Sauver la princesse quand le prince a déjà une princesse
     Given une princesse
-    And la prince <alreadyHadPrincess>
-    When la <prince> la sauve
-    Then elle va lui refuser et lui dire il est un prince infidèle (<messageErreur>)
+    And un <prince> et <princessDuPrince> est déjà quelqu'un
+    When le <prince> la sauve
+    Then <prince> et <princesse> ne pourraient pas être ensemble
+    And la <princesse> ne pourraient pas être <saved>
 
     Examples:
-      | prince  | alreadyHadPrincess | messageErreur                                                       |
-      | "Nick"  | true               | "Je suis désolé, mais je ne peux pas être avec un prince infidèle." |
+      | prince  | princessDuPrince    | saved |
+      | "Nick"  | Rapunzel            | false |
     
