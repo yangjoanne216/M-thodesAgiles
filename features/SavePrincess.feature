@@ -18,7 +18,7 @@ Feature: Sauver Princess
     Then prince et princesse devraient être ensemble et la <princesse> devrait être <saved>
 
   Examples:
-    | princesse  | alreadySaved | prince |princessDuPrince | saved  |
-    | Rapunzel   | False        | Flynn  |None             | True   |
-    | Rapunzel   | True         | Flynn  |None             | False  |
-    | Rapunzel   | False        | Flynn  |Rapunzel         | False  |
+    | princesse  | alreadySaved | prince  |princessDuPrince | saved  |
+    | Rapunzel   | False        | Flynn   |None             | True   |
+    | Olive      | True         | Brutus  |None             | False  |
+    | Annie      | False        | Nick    |Rapunzel         | False  |
