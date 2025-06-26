@@ -1,6 +1,5 @@
 from dataclasses import dataclass
-
-from src.Kingdom import Princess
+from .Kingdom import Princess
 
 @dataclass
 class Serie:

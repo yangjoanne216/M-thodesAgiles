@@ -55,7 +55,6 @@ def step_then_series_has_new_suite(context, title, expected):
 @then('la série "{title}" ne devrait pas ajouter de suite supplémentaire')
 def step_then_series_does_not_add_suite(context, title):
     assert context.serie.titre == title
-    # suite 应该保持为初始的
     assert context.serie.suite is not None, "La série devrait déjà avoir une suite"
     assert context.serie.suite.titre == context.initial_suite, (
         "Une nouvelle suite a été ajoutée alors que la série en possédait déjà une"
