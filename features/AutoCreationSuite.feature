@@ -1,9 +1,9 @@
 # Author: yang.yang2@dauphine.eu
 @tag
 Feature: Observer — Création de suite de série après sauvetage de la princesse
-  As a developer
-  I want que les séries abonnées à une princesse créent automatiquement une suite
-  So that seules les séries sans suite reçoivent une nouvelle saison quand la princesse est sauvée
+  En tant que princesse
+  Je souhaite que mon histoire ne se termine pas après avoir été sauvée par le prince, et que les séries qui m’abonnent créent automatiquement une suite
+  Afin de faire en sorte que seules les séries sans suite reçoivent une nouvelle saison quand je suis sauvée.
 
 
    
