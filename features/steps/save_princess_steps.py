@@ -4,7 +4,7 @@ Steps pour : Feature « Sauver Princess »
 
 from dataclasses import dataclass
 from behave import given, when, then
-from kingdom import Princess, Prince
+from src.Kingdom import Princess, Prince
 
 
 @dataclass
