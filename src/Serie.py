@@ -25,17 +25,15 @@ class Serie:
 
     @suite.setter
     def suite(self, value: 'Serie'):
+        # 如果已经是同一个续集，直接返回
         if self._suite is value:
             return
 
+        # 清理旧关系（将旧续集断开）
         if self._suite is not None:
-            self._suite._suite = None
+            self._suite = None
 
-        if value is not None:
-            if value._suite is not None:
-                value._suite._suite = None
-            value._suite = self
-
+        # 设定新的续集
         self._suite = value
 
     @property
