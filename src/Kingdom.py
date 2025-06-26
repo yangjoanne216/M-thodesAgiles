@@ -1,8 +1,8 @@
-from dataclasses import dataclass
 from typing import Optional
+from .Person import Person
 
 
-class Princess:
+class Princess(Person):
     def __init__(self, name: str = "", alreadySaved: bool = False):
         self.name = name
         self.alreadySaved = alreadySaved
@@ -13,8 +13,11 @@ class Princess:
     def foundPrinceAndBeHappyForever(self):
         self.alreadySaved = True
 
+    def introduce(self) -> str:
+        return "Je suis une pricesse, mon nom est " + self.name
 
-class Prince:
+
+class Prince(Person):
     def __init__(self, name: str = "", princess: Optional[Princess] = None):
         self.name = name
         self.princess = princess
@@ -26,3 +29,6 @@ class Prince:
         if not self.isAlreadyHadPrincess() and not princess.isSaved():
             self.princess = princess
             princess.foundPrinceAndBeHappyForever()
+
+    def introduce(self) -> str:
+        return "Je suis un prince, mon nom est " + self.name
