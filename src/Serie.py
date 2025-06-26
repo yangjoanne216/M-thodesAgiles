@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from src.Kingdom import Princess
+
 @dataclass
 class Serie:
     titre: str = "Astérix"
@@ -25,17 +27,30 @@ class Serie:
 
     @suite.setter
     def suite(self, value: 'Serie'):
-        # 如果已经是同一个续集，直接返回
+        # Si c'est déjà la même suite, ne rien faire
         if self._suite is value:
             return
 
-        # 清理旧关系（将旧续集断开）
+        # Nettoyer l'ancienne relation (dissocier la suite précédente)
         if self._suite is not None:
             self._suite = None
 
-        # 设定新的续集
+        # Définir la nouvelle suite
         self._suite = value
 
     @property
     def is_long_running(self):
         return self.nb_saisons >= 3
+    
+     # Rappel de l'observateur
+    def update(self, subject):
+        if isinstance(subject, Princess) and subject.isSaved():
+           # **Ajouter la suite uniquement s'il n'existe pas déjà de suite**
+            if self._suite is None:
+                self.addSuite()
+    
+    def addSuite(self):
+        new_title = f"{self.titre} – Suite"
+        suite = Serie(titre=new_title, nb_saisons=1)
+        self.suite = suite
+        print(f"→ Création de la suite pour '{self.titre}' : '{suite.titre}'")
